@@ -12,3 +12,10 @@ cd main
 go build main.go
 go run main.go or ./main
 ```
+
+# To run the unit tests
+ ```
+cd testfractions
+go test -run ''
+
+```
