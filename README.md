@@ -16,6 +16,5 @@ go run main.go or ./main
 # To run the unit tests
  ```
 cd testfractions
-go test -run ''
-
+go test -run '' or go test ./...
 ```
