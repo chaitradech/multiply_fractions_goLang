@@ -8,13 +8,13 @@ git clone https://github.com/chaitradech/multiply_fractions_goLang.git
 ```
 # To run the function
  ```
-cd main
+cd cmd
 go build main.go
 go run main.go or ./main
 ```
 
 # To run the unit tests
  ```
-cd testfractions
+cd arithmetic
 go test -run '' or go test ./...
 ```
