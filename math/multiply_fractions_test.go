@@ -1,11 +1,11 @@
-package fractions
+package math
 
 import (
 	"testing"
+	"reflect"
 )
 
-// TestComputeGCD tests the functionality of computeGCD method.
-
+// TestComputeGCD tests the functionality of the method computeGCD.
 func TestComputeGCD(t *testing.T) {
 	var tests = []struct {
 		a int64
@@ -20,36 +20,34 @@ func TestComputeGCD(t *testing.T) {
 		{6, 8, 2},
 		{7, 13, 1},
 	}
+
 	for _, test := range tests {
-		got := computeGCD(test.a, test.b)
-		if got == test.n {
-			return
-		} else {
-			t.Errorf("Didn't match expected result for computeGCD(%d,%d) = Got: %d , Expected: %d;", test.a, test.b, test.n, got)
-		}
-	}
+        got := computeGCD(test.a, test.b)
+        if !reflect.DeepEqual(test.n, got) {
+            t.Fatalf("Didn't match expected result for computeGCD(%d,%d) = Got: %d , Expected: %d;", test.a, test.b, test.n, got)
+        }
+    }
 }
 
-// TestReduce tests the functionality of reduce method.
-
+// TestReduce tests the functionality of the method reduce.
 func TestReduce(t *testing.T) {
 	var tests = []struct {
 		a Fraction
 		x int64
 		y int64
 	}{
-		{Fraction{5, 5}, 1, 1},
 		{Fraction{13, 73}, 13, 73},
-		{Fraction{6, 8}, 2, 1},
+		{Fraction{5, 5}, 1, 1},
+		{Fraction{6, 8}, 3, 4},		
 	}
+
 	for _, test := range tests {
-		got1, got2 := reduce(test.a)
-		if got1 == test.x && got2 == test.y {
-			return
-		} else {
-			t.Errorf("Didn't match expected result for reduce(%d) = Got: %d, %d, expected: %d, %d;", test.a, got1, got2, test.x, test.y)
-		}
-	}
+        got1, got2 := reduce(test.a)
+        if !reflect.DeepEqual(got1, test.x)  || !reflect.DeepEqual(got2, test.y){
+            t.Fatalf("Didn't match expected result for reduce(%d) = Got: %d, %d, expected: %d, %d;", test.a, got1, got2, test.x, test.y)
+        }
+    }
+
 }
 
 // TestMultiplyFractions tests the functionality of MultiplyFractions method.
@@ -71,11 +69,9 @@ func TestMultiplyFractions(t *testing.T) {
 	}
 
 	for _, test := range tests {
-		total := MultiplyFractions(test.a, test.b)
-		if total.Numerator == test.result.Numerator && total.Denominator == test.result.Denominator {
-			return
-		} else {
-			t.Errorf("Didn't match expected result for MultiplyFractions(%d,%d) = Got: %d , Expected: %d;", test.a, test.b, test.result, total)
-		}
-	}
+        total := MultiplyFractions(test.a, test.b)
+        if !reflect.DeepEqual(total.Numerator, test.result.Numerator)  || !reflect.DeepEqual(total.Denominator, test.result.Denominator){
+            t.Fatalf("Didn't match expected result for MultiplyFractions(%d,%d) = Got: %d , Expected: %d;", test.a, test.b, test.result, total)
+        }
+    }
 }

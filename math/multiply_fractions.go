@@ -1,4 +1,4 @@
-package fractions
+package math
 
 // Fraction signifies a fraction value.
 type Fraction struct {

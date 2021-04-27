@@ -18,3 +18,9 @@ go run main.go or ./main
 cd arithmetic
 go test -run '' or go test ./...
 ```
+# Standards followed
+Trie and Implemedted the above following the best standards provided by go Code Review Comments and effective Go. 
+```
+https://github.com/golang/go/wiki/CodeReviewComments
+https://golang.org/doc/effective_go
+```

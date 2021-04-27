@@ -2,7 +2,7 @@ package main
 
 import (
 	"fmt"
-	. "arithmetic/multiply_fractions"
+	. "math/multiply_fractions"
 )
 
 func main() {
