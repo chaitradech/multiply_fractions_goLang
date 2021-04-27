@@ -4,182 +4,75 @@ import (
 	"testing"
 )
 
-//TestComputeGCD tests the functionality of ComputeGCD.
+// TestComputeGCD tests the functionality of computeGCD method.
 
 func TestComputeGCD(t *testing.T) {
-	got := ComputeGCD(6, 10)
-	assertEqual(t, got, 2)
-}
-
-func assertEqual(t *testing.T, got int64, expected int64) {
-	if got == expected {
-		return
-	} else {
-		t.Errorf("computeGCD(6,10) = %d ; want 2", expected)
+	var tests = []struct {
+		a int64
+		b int64
+		n int64
+	}{
+		{1, 1, 1},
+		{2, 1, 1},
+		{3, 2, 1},
+		{4, 3, 1},
+		{5, 5, 5},
+		{6, 8, 2},
+		{7, 13, 1},
+	}
+	for _, test := range tests {
+		got := computeGCD(test.a, test.b)
+		if got == test.n {
+			return
+		} else {
+			t.Errorf("Didn't match expected result for computeGCD(%d,%d) = Got: %d , Expected: %d;", test.a, test.b, test.n, got)
+		}
 	}
 }
 
-//TestMultiplyFractions1 inputs a=1/2 and b=1/3, and expectes o/p res=1/6.
-func TestMultiplyFractions1(t *testing.T) {
-	a := Fraction{Numerator: 1, Denominator: 2}
-	b := Fraction{Numerator: 1, Denominator: 3}
+// TestReduce tests the functionality of reduce method.
 
-	res := MultiplyFractions(a, b)
-
-	if res.Numerator == 1 && res.Denominator == 6 {
-		return
-	} else {
-		t.Errorf("Didn't match expected result for MultiplyFractions(%d,%d) = %d ;", a, b, res)
+func TestReduce(t *testing.T) {
+	var tests = []struct {
+		a Fraction
+		x int64
+		y int64
+	}{
+		{Fraction{5, 5}, 1, 1},
+		{Fraction{13, 73}, 13, 73},
+		{Fraction{6, 8}, 2, 1},
+	}
+	for _, test := range tests {
+		got1, got2 := reduce(test.a)
+		if got1 == test.x && got2 == test.y {
+			return
+		} else {
+			t.Errorf("Didn't match expected result for reduce(%d) = Got: %d, %d, expected: %d, %d;", test.a, got1, got2, test.x, test.y)
+		}
 	}
 }
 
-//TestMultiplyFractions2 inputs a=6/10 and b=4/10, and expectes o/p res=6/25.
-func TestMultiplyFractions2(t *testing.T) {
-	a := Fraction{Numerator: 6, Denominator: 10}
-	b := Fraction{Numerator: 4, Denominator: 10}
-
-	res := MultiplyFractions(a, b)
-
-	if res.Numerator == 6 && res.Denominator == 25 {
-		return
-	} else {
-		t.Errorf("Didn't match expected result for MultiplyFractions(%d,%d) = %d ;", a, b, res)
-	}
-}
-
-//TestMultiplyFractions3 inputs a=6/5 and b=4/10, and expectes o/p res=12/25.
-func TestMultiplyFractions3(t *testing.T) {
-	a := Fraction{Numerator: 6, Denominator: 5}
-	b := Fraction{Numerator: 4, Denominator: 10}
-
-	res := MultiplyFractions(a, b)
-
-	if res.Numerator == 12 && res.Denominator == 25 {
-		return
-	} else {
-		t.Errorf("Didn't match expected result for MultiplyFractions(%d,%d) = %d ;", a, b, res)
-	}
-}
-
-//TestMultiplyFractions4 inputs a=12/10 and b=10/12, and expectes o/p : 1/1.
-func TestMultiplyFractions4(t *testing.T) {
-	a := Fraction{Numerator: 12, Denominator: 10}
-	b := Fraction{Numerator: 10, Denominator: 12}
-
-	res := MultiplyFractions(a, b)
-
-	if res.Numerator == 1 && res.Denominator == 1 {
-		return
-	} else {
-		t.Errorf("Didn't match expected result for MultiplyFractions(%d,%d) = %d ;", a, b, res)
-	}
-}
-
-//TestMultiplyFractions5 inputs a=3/6 and b=5/9, and expectes o/p res=5/18.
-func TestMultiplyFractions5(t *testing.T) {
-	a := Fraction{Numerator: 3, Denominator: 6}
-	b := Fraction{Numerator: 5, Denominator: 9}
-
-	res := MultiplyFractions(a, b)
-
-	if res.Numerator == 5 && res.Denominator == 18 {
-		return
-	} else {
-		t.Errorf("Didn't match expected result for MultiplyFractions(%d,%d) = %d ;", a, b, res)
-	}
-}
-
-//TestMultiplyFractions6 inputs a=7/3 and b=5/10, and expectes o/p res=21/50.
-func TestMultiplyFractions6(t *testing.T) {
-	a := Fraction{Numerator: 7, Denominator: 5}
-	b := Fraction{Numerator: 3, Denominator: 10}
-
-	res := MultiplyFractions(a, b)
-
-	if res.Numerator == 21 && res.Denominator == 50 {
-		return
-	} else {
-		t.Errorf("Didn't match expected result for MultiplyFractions(%d,%d) = %d ;", a, b, res)
-	}
-}
-
-//TestMultiplyFractions7 inputs a=89/10 and b=14/17, and expectes o/p res=623/85.
-func TestMultiplyFractions7(t *testing.T) {
-	a := Fraction{Numerator: 89, Denominator: 10}
-	b := Fraction{Numerator: 14, Denominator: 17}
-
-	res := MultiplyFractions(a, b)
-
-	if res.Numerator == 623 && res.Denominator == 85 {
-		return
-	} else {
-		t.Errorf("Didn't match expected result for MultiplyFractions(%d,%d) = %d ;", a, b, res)
-	}
-}
-
-//TestMultiplyFractions8 inputs a=22/11 and b=1/3, and expectes o/p res=2/3.
-func TestMultiplyFractions8(t *testing.T) {
-	a := Fraction{Numerator: 22, Denominator: 11}
-	b := Fraction{Numerator: 1, Denominator: 3}
-
-	res := MultiplyFractions(a, b)
-
-	if res.Numerator == 2 && res.Denominator == 3 {
-		return
-	} else {
-		t.Errorf("Didn't match expected result for MultiplyFractions(%d,%d) = %d ;", a, b, res)
-	}
-}
-
-//TestMultiplyFractions9 inputs a=55/23 and b=21/18, and expectes o/p res=1265/378.
-func TestMultiplyFractions9(t *testing.T) {
-	a := Fraction{Numerator: 55, Denominator: 21}
-	b := Fraction{Numerator: 23, Denominator: 18}
-
-	res := MultiplyFractions(a, b)
-
-	if res.Numerator == 1265 && res.Denominator == 378 {
-		return
-	} else {
-		t.Errorf("Didn't match expected result for MultiplyFractions(%d,%d) = %d ;", a, b, res)
-	}
-}
-
-//TestMultiplyFractions10 inputs a=19/17 and b=13/47, and expectes o/p res=323/611.
-func TestMultiplyFractions10(t *testing.T) {
-	a := Fraction{Numerator: 19, Denominator: 13}
-	b := Fraction{Numerator: 17, Denominator: 47}
-
-	res := MultiplyFractions(a, b)
-
-	if res.Numerator == 323 && res.Denominator == 611 {
-		return
-	} else {
-		t.Errorf("Didn't match expected result for MultiplyFractions(%d,%d) = %d ;", a, b, res)
-	}
-}
-
-//TestMultiplyFractionsTogether tests multiple inputs one after other for optimisation.
-func TestMultiplyFractionsTogether(t *testing.T) {
+// TestMultiplyFractions tests the functionality of MultiplyFractions method.
+func TestMultiplyFractions(t *testing.T) {
 	var tests = []struct {
 		a      Fraction
 		b      Fraction
 		result Fraction
 	}{
-		{Fraction{7, 3}, Fraction{5, 10}, Fraction{21, 50}},
+		{Fraction{19, 17}, Fraction{13, 47}, Fraction{247, 799}},
+		{Fraction{55, 23}, Fraction{21, 18}, Fraction{385, 138}},
 		{Fraction{89, 10}, Fraction{14, 17}, Fraction{623, 85}},
-		{Fraction{55, 23}, Fraction{21, 18}, Fraction{1265, 378}},
-		{Fraction{19, 17}, Fraction{13, 47}, Fraction{323, 611}},
-		{Fraction{1, 2}, Fraction{1, 2}, Fraction{1, 2}},
-		{Fraction{1, 2}, Fraction{1, 3}, Fraction{1, 6}},
-		{Fraction{6, 10}, Fraction{4, 10}, Fraction{6, 25}},
-		{Fraction{6, 5}, Fraction{4, 10}, Fraction{12, 25}},
 		{Fraction{3, 6}, Fraction{5, 9}, Fraction{5, 18}},
+		{Fraction{6, 5}, Fraction{4, 10}, Fraction{12, 25}},
+		{Fraction{6, 10}, Fraction{4, 10}, Fraction{6, 25}},
+		{Fraction{7, 3}, Fraction{5, 10}, Fraction{7, 6}},
+		{Fraction{1, 2}, Fraction{1, 2}, Fraction{1, 4}},
+		{Fraction{1, 2}, Fraction{1, 3}, Fraction{1, 6}},
 	}
 
 	for _, test := range tests {
 		total := MultiplyFractions(test.a, test.b)
-		if total.Numerator != test.result.Numerator && total.Denominator != test.result.Denominator {
+		if total.Numerator == test.result.Numerator && total.Denominator == test.result.Denominator {
 			return
 		} else {
 			t.Errorf("Didn't match expected result for MultiplyFractions(%d,%d) = Got: %d , Expected: %d;", test.a, test.b, test.result, total)
