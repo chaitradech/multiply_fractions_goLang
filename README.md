@@ -15,7 +15,7 @@ go run main.go or ./main
 
 # To run the unit tests
  ```
-cd arithmetic
+cd math
 go test -run '' or go test ./...
 ```
 # Standards followed
